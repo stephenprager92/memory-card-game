@@ -45,8 +45,8 @@ function shuffle(array) {
 function flipCard(card) {
 
 	//Toggle the class list to add or remove visibility classes
-    card.classList.toggle('open');
-    card.classList.toggle('show');
+    card.classList.add('open');
+    card.classList.add('show');
 }
 
 
