@@ -36,3 +36,32 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+// SET UP EVENT LISTENERS FOR CARD
+
+// First, we need our handler functions
+
+// FLIP CARD - flips the card to reflect the "other" side
+function flipCard(card) {
+
+	//Toggle the class list to add or remove visibility classes
+    card.classList.toggle('open');
+    card.classList.toggle('show');
+}
+
+
+// ADD CLICK EVENT HANDLERS TO CARDS
+// Note we are not attaching event handler to deck container (even with slightly optimized performance) 
+// because I don't want to cause flip on empty spaces or other objects in deck area
+
+// Fetch cards
+const cardList = document.querySelectorAll('.card');
+
+// Loop through cards and add event listeners
+for (let i = 0; i < cardList.length; i++) {
+	cardList[i].addEventListener('click', function selectCard() {
+		// WE'LL ADD GAME RULES HERE LATER
+		flipCard(this);
+	})
+}
+
