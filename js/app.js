@@ -37,6 +37,12 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+
+ // GLOBAL VARS 
+const activeCards = [];  // Array to hold 'active' or selected cards
+const activeCardTimer = 2; // Time (in ms) for 'active' cards to hold after a selection
+
+
 // SET UP EVENT LISTENERS FOR CARD
 
 // First, we need our handler functions
@@ -45,23 +51,70 @@ function shuffle(array) {
 function flipCard(card) {
 
 	//Toggle the class list to add or remove visibility classes
-    card.classList.add('open');
-    card.classList.add('show');
+    card.classList.toggle('open');
+    card.classList.toggle('show');
 }
 
+// MODIFY ACTIVE CARD LIST
 
-// ADD CLICK EVENT HANDLERS TO CARDS
-// Note we are not attaching event handler to deck container (even with slightly optimized performance) 
-// because I don't want to cause flip on empty spaces or other objects in deck area
+// ADD CARD TO LIST 
+// Since we are using push, this function returns the length of the active card list (check for 2)
+function addActiveCard(card) {
+	flipCard(card);
+	return activeCards.push(card);
+}
 
+// REMOVE CARDS FROM LIST
+function removeActiveCards() {
+    
+    // Note this needs to be on a delay for users to see the symbols - therefore, set Timeout
+    setTimeout( function() {
+
+    	// First, check for match
+    	checkMatch(activeCards);
+
+        // Then, iterate and flip
+    	const len = activeCards.length;
+
+		for (i = 0; i < len; i++) {
+			card = activeCards.pop();
+			flipCard(card);
+		}
+	}, activeCardTimer * 1000);
+}
+
+// CHECK FOR MATCH IN ACTIVE CARD LIST
+function checkMatch(activeCards) {
+    
+    // Pull <i> child elements of each active card (where symbol classes are found)
+    activeCardChild1 = activeCards[0].firstElementChild;
+    activeCardChild2 = activeCards[1].firstElementChild;
+
+
+    // Compare symbols (found as second class) of active card <i> children to see if there is a match 
+    if (activeCardChild1.classList[1] === activeCardChild2.classList[1]) {
+
+    	// If match, add match class to each card
+    	activeCards[0].classList.toggle('match');
+    	activeCards[1].classList.toggle('match');
+    
+    }
+}
+
+// ADD EVENT LISTENERS TO CARDS THAT RESPOND TO RULES OF GAME 
 // Fetch cards
 const cardList = document.querySelectorAll('.card');
 
-// Loop through cards and add event listeners
+// Loop through cards and add listeners
 for (let i = 0; i < cardList.length; i++) {
 	cardList[i].addEventListener('click', function selectCard() {
-		// WE'LL ADD GAME RULES HERE LATER
-		flipCard(this);
+		
+		// If two active cards, evaluate match and remove from active list
+		if (addActiveCard(this) === 2) {
+			removeActiveCards();
+		}
 	})
 }
+
+
 
