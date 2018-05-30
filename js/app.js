@@ -1,6 +1,25 @@
+// Steve Prager Card Matching Game - app.js
+// Udacity FEND Project #2
+
+
+ // GLOBAL VARS 
+const activeCards = [];  // Array to hold 'active' or selected cards
+const activeCardTimer = 2; // Time (in ms) for 'active' cards to hold after a selection
+const totalPairs = 8; // Total number of pairs in the card game
+let pairsMatched = 0; // Total number of pairs currently matched
+let moveCounter = 0; // Total number of moves currently made
+let cardSymbols = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
+                   'fa-anchor','fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube',
+                   'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb']; // Note each symbol class is represented twice (as it will appear in the deck twice)
+
 /*
  * Create a list that holds all of your cards
  */
+function createDeck() {
+
+	// Grab card elements from default HTML structure to grab card elements
+	cardList = document.querySelectorAll('.card');
+}
 
 
 /*
@@ -26,6 +45,7 @@ function shuffle(array) {
 }
 
 
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -36,14 +56,6 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-
- // GLOBAL VARS 
-const activeCards = [];  // Array to hold 'active' or selected cards
-const activeCardTimer = 2; // Time (in ms) for 'active' cards to hold after a selection
-const totalPairs = 8; // Total number of pairs in the card game
-let pairsMatched = 0; // Total number of pairs currently matched
-let moveCounter = 0; // Total number of moves currently made
 
 
 // SET UP EVENT LISTENERS FOR CARD
@@ -114,6 +126,9 @@ function incrementMoveCounter() {
 	// Update the element's text content
 	counter.textContent = moveCounter;
 }
+
+
+// EXECUTION CODE (NOT DECLARED)
 
 // ADD EVENT LISTENERS TO CARDS THAT RESPOND TO RULES OF GAME 
 // Fetch cards
