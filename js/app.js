@@ -41,6 +41,9 @@ function shuffle(array) {
  // GLOBAL VARS 
 const activeCards = [];  // Array to hold 'active' or selected cards
 const activeCardTimer = 2; // Time (in ms) for 'active' cards to hold after a selection
+const totalPairs = 8; // Total number of pairs in the card game
+let pairsMatched = 0; // Total number of pairs currently matched
+let moveCounter = 0; // Total number of moves currently made
 
 
 // SET UP EVENT LISTENERS FOR CARD
@@ -70,9 +73,6 @@ function removeActiveCards() {
     // Note this needs to be on a delay for users to see the symbols - therefore, set Timeout
     setTimeout( function() {
 
-    	// First, check for match
-    	checkMatch(activeCards);
-
         // Then, iterate and flip
     	const len = activeCards.length;
 
@@ -101,6 +101,20 @@ function checkMatch(activeCards) {
     }
 }
 
+
+// INCREMENT MOVE COUNTER
+function incrementMoveCounter() {
+
+	// Increment the move counter variable
+	moveCounter++;
+	
+	// grab the move counter element
+	const counter = document.querySelector('.moves');
+
+	// Update the element's text content
+	counter.textContent = moveCounter;
+}
+
 // ADD EVENT LISTENERS TO CARDS THAT RESPOND TO RULES OF GAME 
 // Fetch cards
 const cardList = document.querySelectorAll('.card');
@@ -109,10 +123,15 @@ const cardList = document.querySelectorAll('.card');
 for (let i = 0; i < cardList.length; i++) {
 	cardList[i].addEventListener('click', function selectCard() {
 		
-		// If two active cards, evaluate match and remove from active list
+		
+		// If two active cards, evaluate match, remove from active list, and increment move counter
 		if (addActiveCard(this) === 2) {
+			incrementMoveCounter();
+    	    checkMatch(activeCards);
 			removeActiveCards();
 		}
+
+
 	})
 }
 
