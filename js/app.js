@@ -11,14 +11,29 @@ let moveCounter = 0; // Total number of moves currently made
 let cardSymbols = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
                    'fa-anchor','fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube',
                    'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb']; // Note each symbol class is represented twice (as it will appear in the deck twice)
+const cardCount = cardSymbols.length; // Number of cards in the game
 
-/*
- * Create a list that holds all of your cards
- */
+
+// Create an HTML card deck and add to the DOM
+// Since 'deck' element is a <ul> element, cards will be <li> elements and symbols will be <i> font elements
 function createDeck() {
 
-	// Grab card elements from default HTML structure to grab card elements
-	cardList = document.querySelectorAll('.card');
+	// Shuffle card symbols  
+	shuffledCards = shuffle(cardSymbols);
+
+	// Pull deck element
+	const deck = document.querySelector('.deck');
+
+	// Loop through cardCount, create card, add symbol, add to deck
+	for (let i = 0; i < cardCount; i++) {
+
+		const newCard = document.createElement('li');
+		const newSymbol = document.createElement('i');
+	    newCard.classList.add('card');
+	    newSymbol.classList.add('fa', cardSymbols[i]);
+		newCard.appendChild(newSymbol);
+		deck.appendChild(newCard);
+	}	
 }
 
 
@@ -128,7 +143,10 @@ function incrementMoveCounter() {
 }
 
 
-// EXECUTION CODE (NOT DECLARED)
+// EXECUTION CODE
+
+// Create deck
+createDeck();
 
 // ADD EVENT LISTENERS TO CARDS THAT RESPOND TO RULES OF GAME 
 // Fetch cards
