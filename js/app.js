@@ -15,6 +15,7 @@ const totalPairs = cardCount / 2; // Total number of pairs in the card game
 let starCount = 3; // Game score (in stars). Reduced as more moves are applied
 const threeStarThreshold = 15; // 3-star score threshold (in moves). More moves means 3-star score is impossible.
 const twoStarThreshold = 25; // 2-star score threshold (in moves). More moves means 2-star score is impossible.
+const startTime = new Date(); // Start Time. Set when the page is loaded.
 
 
 // Create an HTML card deck and add to the DOM
@@ -158,7 +159,27 @@ function updateScore() {
 
 // CHECK IF GAME HAS BEEN WON. IF SO, UPDATE SCREEN. 
 function checkWinner() {
-	if (pairsMatched === totalPairs) {
+	if (moveCounter > 2) {
+	//if (pairsMatched === totalPairs) {
+
+		// Update modal text to show current score and time playing game
+		const modalScore = document.querySelector('.score');
+		modalScore.innerHTML = document.querySelector('.stars').innerHTML;
+
+		// Set star style to display properly
+		modalScore.style.listStyle = "none";
+		const modalScoreStars = document.querySelectorAll('.score li');
+		for (i = 0; i < modalScoreStars.length; i++) {
+			modalScoreStars[i].style.display = "inline-block";
+		}
+
+		// Adjust ms time to seconds
+		const modalTime = document.querySelector('.time');
+		modalTime.textContent = Math.round((new Date() - startTime) / 1000);
+
+		// Display modal
+		const victoryModal = document.querySelector('#victoryModal');
+		victoryModal.style.display = 'block';
 
 	}
 }
