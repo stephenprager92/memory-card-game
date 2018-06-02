@@ -4,14 +4,17 @@
 
  // GLOBAL VARS 
 const activeCards = [];  // Array to hold 'active' or selected cards
-const activeCardTimer = 2; // Time (in ms) for 'active' cards to hold after a selection
-const totalPairs = 8; // Total number of pairs in the card game
+const activeCardTimer = 1; // Time (in seconds) for 'active' cards to hold after a selection
 let pairsMatched = 0; // Total number of pairs currently matched
 let moveCounter = 0; // Total number of moves currently made
 let cardSymbols = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
                    'fa-anchor','fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube',
                    'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb']; // Note each symbol class is represented twice (as it will appear in the deck twice)
 const cardCount = cardSymbols.length; // Number of cards in the game
+const totalPairs = cardCount / 2; // Total number of pairs in the card game
+let starCount = 3; // Game score (in stars). Reduced as more moves are applied
+const threeStarThreshold = 15; // 3-star score threshold (in moves). More moves means 3-star score is impossible.
+const twoStarThreshold = 25; // 2-star score threshold (in moves). More moves means 2-star score is impossible.
 
 
 // Create an HTML card deck and add to the DOM
@@ -36,7 +39,6 @@ function createDeck() {
 	}	
 }
 
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -58,8 +60,6 @@ function shuffle(array) {
 
     return array;
 }
-
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -124,7 +124,9 @@ function checkMatch(activeCards) {
     	// If match, add match class to each card
     	activeCards[0].classList.toggle('match');
     	activeCards[1].classList.toggle('match');
-    
+
+    	// Increment pairsmatched
+    	pairsMatched++;
     }
 }
 
@@ -134,12 +136,31 @@ function incrementMoveCounter() {
 
 	// Increment the move counter variable
 	moveCounter++;
-	
+
 	// grab the move counter element
 	const counter = document.querySelector('.moves');
 
 	// Update the element's text content
 	counter.textContent = moveCounter;
+}
+
+
+// UPDATE SCORE (STARS) IF THRESHOLD IS REACHED
+function updateScore() {
+
+	// Check move counter - if at a threshold, remove one star and update stars variable
+	if (moveCounter === threeStarThreshold || moveCounter === twoStarThreshold) {
+		const stars = document.querySelector('.stars');
+		stars.removeChild(stars.lastElementChild);
+		starCount--;
+	}
+}
+
+// CHECK IF GAME HAS BEEN WON. IF SO, UPDATE SCREEN. 
+function checkWinner() {
+	if (pairsMatched === totalPairs) {
+
+	}
 }
 
 
@@ -155,15 +176,25 @@ const cardList = document.querySelectorAll('.card');
 // Loop through cards and add listeners
 for (let i = 0; i < cardList.length; i++) {
 	cardList[i].addEventListener('click', function selectCard() {
-		
-		
-		// If two active cards, evaluate match, remove from active list, and increment move counter
+				
+		// Add active card (executed in conditional). If two active cards... 
 		if (addActiveCard(this) === 2) {
+			
+            // Increment move counter
 			incrementMoveCounter();
+			
+			// Update the (star) score
+            updateScore();
+	
+	        // Check for a match
     	    checkMatch(activeCards);
-			removeActiveCards();
-		}
 
+    	    // Remove active cards from list
+			removeActiveCards();
+
+			// Check for a winner
+			checkWinner();
+		}
 
 	})
 }
