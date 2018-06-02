@@ -159,7 +159,7 @@ function updateScore() {
 
 // CHECK IF GAME HAS BEEN WON. IF SO, UPDATE SCREEN. 
 function checkWinner() {
-	if (moveCounter > 2) {
+	if (moveCounter > 0) {
 	//if (pairsMatched === totalPairs) {
 
 		// Update modal text to show current score and time playing game
