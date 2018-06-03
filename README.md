@@ -3,18 +3,36 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
+* [Other Contributors](#other-contributors)
 * [Contributing](#contributing)
 * [Licenses](#licenses)
 
 ## Instructions
 
-STEVE TO FILL OUT ONCE COMPLETE
+This project is a simple browser-based card game that tests the user's ability to remember pairs of matching symbols. There are 16 cards on the board, all of which begin the game flipped face down. Click on a card to flip it over and reveal its symbol. When two *unmatched* cards are flipped, they will display briefly and then automatically return to their flipped position. When two *matching* cards are flipped, they will remain flipped for the remainder of the game. The user must focus on remembering and flipping pairs until all 16 cards have been matched. 
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+The game is scored in two ways:
+	1. Star count, which is derived from the number of moves the user has currently taken. A three-star score is possible if the game is beaten in 15 or fewer moves, while a two-star score is possible if the game is beaten in 25 or fewer moves. 26 or more moves will result in a one-star score.
+	2. Time to complete. This is measured in seconds and indicates how long the player has taken to beat the game.
 
-To get started, open `js/app.js` and start building out the app's functionality
+In order to begin playing this game, you will need the full contents of this repository. This includes:
+	1. index.html
+	2. css folder
+		* app.css
+	3. js folder
+		* app.js
+	4. img folder
+		* geometry2.png
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+You will not require any external software - the game can be played with just this content in any web browser.
+
+## Other Contributors
+
+Starter HTML / CSS code (including default images, stying, and symbols) taken from the Udacity classroom. 
+
+"Shuffle" function taken from Stack Overflow. 
+
+Victory screen modal developed using W3Schools guidelines.
 
 ## Contributing
 
