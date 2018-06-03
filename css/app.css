@@ -147,3 +147,8 @@ h1 {
     color: white;
     cursor: pointer;
 } 
+
+/* Add margin between restart text and log */
+.fa-repeat {
+    margin-left: 5px;
+}
