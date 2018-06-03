@@ -5,7 +5,7 @@
  // GLOBAL VARS 
 const activeCards = [];  // Array to hold 'active' or selected cards
 const activeCardMax = 2; //Number of active cards allowed at once
-const activeCardTimer = 1; // Time (in seconds) for 'active' cards to hold after a selection
+const activeCardTimer = 2; // Time (in seconds) for 'active' cards to hold after a selection
 let pairsMatched = 0; // Total number of pairs currently matched
 let moveCounter = 0; // Total number of moves currently made
 let cardSymbols = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
@@ -14,8 +14,8 @@ let cardSymbols = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-pla
 const cardCount = cardSymbols.length; // Number of cards in the game
 const totalPairs = cardCount / 2; // Total number of pairs in the card game
 let starCount = 3; // Game score (in stars). Reduced as more moves are applied
-const threeStarThreshold = 16; // 3-star score threshold (in moves). More moves means 3-star score is impossible.
-const twoStarThreshold = 26; // 2-star score threshold (in moves). More moves means 2-star score is impossible.
+const threeStarThreshold = 15; // 3-star score threshold (in moves). More moves means 3-star score is impossible.
+const twoStarThreshold = 25; // 2-star score threshold (in moves). More moves means 2-star score is impossible.
 let startTime = new Date(); // Start Time. Set when the page is loaded. Used for game timer and time score
 
 // CREATE HTML CARD DECK AND ADD TO DOM
@@ -193,31 +193,6 @@ function checkWinner() {
 	}
 }
 
-// SELECT CARD 
-// Called as click listener function. 
-// Iterates through game logic by checking, adding, and removing active cards 
-function selectCard() {
-
-	// Add active card (executed in conditional). If two active cards... 
-	if (addActiveCard(this) === activeCardMax) {
-		
-	    // Increment move counter
-		incrementMoveCounter();
-		
-		// Update the (star) score
-	    updateScore();
-
-	    // Check for a match
-	    checkMatch(activeCards);
-
-	    // Remove active cards from list
-		removeActiveCards();
-
-		// Check for a winner
-		checkWinner();
-	}
-}
-
 // RESET GAME
 // Executed if player clicks "play again" items
 function resetGame() {
@@ -239,8 +214,26 @@ function resetGame() {
 	// Loop through cards and readd listeners
 	const cardList = document.querySelectorAll('.card');
 	for (let i = 0; i < cardList.length; i++) {
-		cardList[i].addEventListener('click', function () {
-			selectCard();
+		cardList[i].addEventListener('click', function selectCard() {
+
+			// Add active card (executed in conditional). If two active cards... 
+			if (addActiveCard(this) === activeCardMax) {
+				
+	            // Increment move counter
+				incrementMoveCounter();
+				
+				// Update the (star) score
+	            updateScore();
+		
+		        // Check for a match
+	    	    checkMatch(activeCards);
+
+	    	    // Remove active cards from list
+				removeActiveCards();
+
+				// Check for a winner
+				checkWinner();
+			}
 		});
 	}
 }
@@ -261,8 +254,27 @@ const cardList = document.querySelectorAll('.card');
 
 // Loop through cards and add listeners
 for (let i = 0; i < cardList.length; i++) {
-	cardList[i].addEventListener('click', function() {
-		selectCard();
+	cardList[i].addEventListener('click', function selectCard() {
+				
+		// Add active card (executed in conditional). If two active cards... 
+		if (addActiveCard(this) === activeCardMax) {
+			
+            // Increment move counter
+			incrementMoveCounter();
+			
+			// Update the (star) score
+            updateScore();
+	
+	        // Check for a match
+    	    checkMatch(activeCards);
+
+    	    // Remove active cards from list
+			removeActiveCards();
+
+			// Check for a winner
+			checkWinner();
+
+		}
 	});
 }
 
