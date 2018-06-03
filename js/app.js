@@ -5,7 +5,7 @@
  // GLOBAL VARS 
 const activeCards = [];  // Array to hold 'active' or selected cards
 const activeCardMax = 2; //Number of active cards allowed at once
-const activeCardTimer = 2; // Time (in seconds) for 'active' cards to hold after a selection
+const activeCardTimer = 1; // Time (in seconds) for 'active' cards to hold after a selection
 let pairsMatched = 0; // Total number of pairs currently matched
 let moveCounter = 0; // Total number of moves currently made
 let cardSymbols = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
@@ -288,6 +288,8 @@ for (let i = 0; i < resetElements.length; i++) {
 
 // UPDATE GAME TIMER
 setInterval(function updateTimer() {
+
+
 
     // Compare current time to start time & update timer
 	const seconds = document.querySelector('.seconds');
