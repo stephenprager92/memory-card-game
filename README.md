@@ -19,12 +19,13 @@ In order to begin playing this game, you will need the full contents of this rep
 	1. index.html
 	2. css folder
 		* app.css
+		* responsive.css
 	3. js folder
 		* app.js
 	4. img folder
 		* geometry2.png
 
-You will not require any external software - the game can be played with just this content in any web browser.
+You will not require any external software - the game can be played with just this content in any web browser (or phone). The app is responsive to different screen sizes.
 
 ## Other Contributors
 

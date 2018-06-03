@@ -18,6 +18,7 @@ const threeStarThreshold = 16; // 3-star score threshold (in moves). More moves 
 const twoStarThreshold = 26; // 2-star score threshold (in moves). More moves means 2-star score is impossible.
 let startTime = new Date(); // Start Time. Set when the page is loaded. Used for game timer and time score
 let gamePaused = false; // Game Paused. Used to stop timer at end of game.
+const defaultStarHTML = document.querySelector('.stars').innerHTML // Star HTML. Used to reset HTML at restart of game
 
 // CREATE HTML CARD DECK AND ADD TO DOM
 // Since 'deck' element is a <ul> element, cards will be <li> elements and symbols will be <i> font elements
@@ -199,6 +200,11 @@ function resetGame() {
 	// Hide Modal (if visible)
 	const victoryModal = document.querySelector('#victoryModal');
 	victoryModal.style.display = "none";
+
+	// Reset HTML / text content
+	document.querySelector('.stars').innerHTML = defaultStarHTML;
+	document.querySelector('.moves').textContent = moveCounter;
+	document.querySelector('.seconds').textContent = seconds;
 
 	// Erase current deck & create a new one
 	eraseDeck();
