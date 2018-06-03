@@ -15,10 +15,9 @@ const totalPairs = cardCount / 2; // Total number of pairs in the card game
 let starCount = 3; // Game score (in stars). Reduced as more moves are applied
 const threeStarThreshold = 15; // 3-star score threshold (in moves). More moves means 3-star score is impossible.
 const twoStarThreshold = 25; // 2-star score threshold (in moves). More moves means 2-star score is impossible.
-const startTime = new Date(); // Start Time. Set when the page is loaded.
+let startTime = new Date(); // Start Time. Set when the page is loaded.
 
-
-// Create an HTML card deck and add to the DOM
+// CREATE HTML CARD DECK AND ADD TO DOM
 // Since 'deck' element is a <ul> element, cards will be <li> elements and symbols will be <i> font elements
 function createDeck() {
 
@@ -40,12 +39,17 @@ function createDeck() {
 	}	
 }
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+// ERASE CURRENT DECK FROM THE DOM
+function eraseDeck() {
+
+    // Grab card deck
+	const cardDeck = document.querySelector('.deck');
+
+	// Remove all child elements until none left
+	while (cardDeck.firstElementChild) {
+	    cardDeck.removeChild(cardDeck.firstElementChild);
+	}
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -184,6 +188,46 @@ function checkWinner() {
 	}
 }
 
+// RESET GAME
+// Executed if player clicks "play again" items
+function resetGame() {
+
+	// Reset global variables
+	pairsMatched = 0;
+	moveCounter = 0;
+	starCount = 3;
+	startTime = new Date();
+
+	// Erase current deck & create a new one
+	eraseDeck();
+	createDeck();
+
+	// Loop through cards and readd listeners
+	const cardList = document.querySelectorAll('.card');
+	for (let i = 0; i < cardList.length; i++) {
+		cardList[i].addEventListener('click', function selectCard() {
+					
+			// Add active card (executed in conditional). If two active cards... 
+			if (addActiveCard(this) === 2) {
+				
+	            // Increment move counter
+				incrementMoveCounter();
+				
+				// Update the (star) score
+	            updateScore();
+		
+		        // Check for a match
+	    	    checkMatch(activeCards);
+
+	    	    // Remove active cards from list
+				removeActiveCards();
+
+				// Check for a winner
+				checkWinner();
+			}
+		});
+	}
+}
 
 // EXECUTION CODE
 
@@ -217,7 +261,7 @@ for (let i = 0; i < cardList.length; i++) {
 			checkWinner();
 		}
 
-	})
+	});
 }
 
 
