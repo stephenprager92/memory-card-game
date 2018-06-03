@@ -163,8 +163,7 @@ function updateScore() {
 
 // CHECK IF GAME HAS BEEN WON. IF SO, UPDATE SCREEN. 
 function checkWinner() {
-	if (moveCounter > 0) {
-	//if (pairsMatched === totalPairs) {
+	if (pairsMatched === totalPairs) {
 
 		// Update modal text to show current score and time playing game
 		const modalScore = document.querySelector('.score');
@@ -198,6 +197,10 @@ function resetGame() {
 	starCount = 3;
 	startTime = new Date();
 
+	// Hide Modal (if visible)
+	const victoryModal = document.querySelector('#victoryModal');
+	victoryModal.style.display = "none";
+
 	// Erase current deck & create a new one
 	eraseDeck();
 	createDeck();
@@ -229,7 +232,12 @@ function resetGame() {
 	}
 }
 
-// EXECUTION CODE
+/* 
+
+ALL CODE BELOW IS EXECUTION CODE 
+(RATHER THAN DECLARED FUNCTIONS)
+
+*/
 
 // Create deck
 createDeck();
@@ -263,6 +271,19 @@ for (let i = 0; i < cardList.length; i++) {
 
 	});
 }
+
+// ADD EVENT LISTENERS TO RESTART ELEMENTS
+
+// Fetch reset elements
+const resetElements = document.querySelectorAll('.restart');
+
+// Loop through and add listeners
+for (let i = 0; i < resetElements.length; i++) {
+	resetElements[i].addEventListener('click', function selectReset() {
+		resetGame();
+	});
+}
+
 
 
 
