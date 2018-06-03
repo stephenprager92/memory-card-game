@@ -17,6 +17,7 @@ let starCount = 3; // Game score (in stars). Reduced as more moves are applied
 const threeStarThreshold = 16; // 3-star score threshold (in moves). More moves means 3-star score is impossible.
 const twoStarThreshold = 26; // 2-star score threshold (in moves). More moves means 2-star score is impossible.
 let startTime = new Date(); // Start Time. Set when the page is loaded. Used for game timer and time score
+let gamePaused = false; // Game Paused. Used to stop timer at end of game.
 
 // CREATE HTML CARD DECK AND ADD TO DOM
 // Since 'deck' element is a <ul> element, cards will be <li> elements and symbols will be <i> font elements
@@ -159,6 +160,9 @@ function updateScore() {
 function checkWinner() {
 	if (pairsMatched === totalPairs) {
 
+        // Pause timer
+		gamePaused = true;
+
 		// Update modal text to show current score and time playing game
 		const modalScore = document.querySelector('.score');
 		modalScore.innerHTML = document.querySelector('.stars').innerHTML;
@@ -186,6 +190,7 @@ function checkWinner() {
 function resetGame() {
 
 	// Reset global variables
+	gamePaused = false;
 	pairsMatched = 0;
 	moveCounter = 0;
 	starCount = 3;
@@ -289,10 +294,12 @@ for (let i = 0; i < resetElements.length; i++) {
 // UPDATE GAME TIMER
 setInterval(function updateTimer() {
 
+    // If game paused, don't do anything 
+    if (!gamePaused) {
 
-
-    // Compare current time to start time & update timer
-	const seconds = document.querySelector('.seconds');
-	seconds.textContent = Math.round((new Date() - startTime) / 1000);
+	    // Compare current time to start time & update timer
+		const seconds = document.querySelector('.seconds');
+		seconds.textContent = Math.round((new Date() - startTime) / 1000);
+	}
 
 }, 1000); // Update every 1000 ms (1 second)
