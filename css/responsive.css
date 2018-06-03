@@ -1,0 +1,82 @@
+/* Responsive CSS */
+/* Contains media queries for Memory Game to play on smaller browsers */
+
+@media screen and (max-width: 700px) {
+	.deck {
+	    width: 530px;
+	    min-height: 544px;
+    }
+    .deck .card {
+    	height: 100px;
+    	width: 100px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+	.deck {
+	    width: 424px;
+	    min-height: 435px;
+    }
+    .deck .card {
+    	height: 80px;
+    	width: 80px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+	.deck {
+	    width: 339px;
+	    min-height: 348px;
+	    padding: 15px;
+    }
+    .deck .card {
+    	height: 64px;
+    	width: 64px;
+    }
+    .deck .card.show {
+	    font-size: 20px;
+	}
+	.deck .card.match {
+	    font-size: 20px;
+	}
+	.score-panel {
+		width: 300px;
+		font-size: 10px;
+	}
+	.score-panel .timer {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+	h1 {
+		font-size: 1.6em;
+	}
+}
+
+@media screen and (max-width: 370px) {
+	.deck {
+	    width: 275px;
+	    min-height: 282px;
+	    padding: 15px;
+    }
+    .deck .card {
+    	height: 52px;
+    	width: 52px;
+    }
+    .deck .card.show {
+	    font-size: 20px;
+	}
+	.deck .card.match {
+	    font-size: 20px;
+	}
+	.score-panel {
+		width: 300px;
+		font-size: 10px;
+	}
+	.score-panel .timer {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+	h1 {
+		font-size: 1.6em;
+	}
+}
