@@ -31,6 +31,7 @@ body {
 h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
+    margin-bottom: 15px;
 }
 
 /*
@@ -87,7 +88,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 465px;
     margin-bottom: 10px;
 }
 
@@ -104,8 +105,17 @@ h1 {
 }
 
 .score-panel .restart {
+    display: inline-block;
     float: right;
     cursor: pointer;
+}
+
+.score-panel .timer {
+    float: center;
+    display: inline-block;
+    text-align: center;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
  /* The Victory Modal */

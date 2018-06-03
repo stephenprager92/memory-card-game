@@ -15,7 +15,7 @@ const totalPairs = cardCount / 2; // Total number of pairs in the card game
 let starCount = 3; // Game score (in stars). Reduced as more moves are applied
 const threeStarThreshold = 15; // 3-star score threshold (in moves). More moves means 3-star score is impossible.
 const twoStarThreshold = 25; // 2-star score threshold (in moves). More moves means 2-star score is impossible.
-let startTime = new Date(); // Start Time. Set when the page is loaded.
+let startTime = new Date(); // Start Time. Set when the page is loaded. Used for game timer and time score
 
 // CREATE HTML CARD DECK AND ADD TO DOM
 // Since 'deck' element is a <ul> element, cards will be <li> elements and symbols will be <i> font elements
@@ -130,7 +130,7 @@ function checkMatch(activeCards) {
     	activeCards[0].classList.toggle('match');
     	activeCards[1].classList.toggle('match');
 
-    	// Increment pairsmatched
+    	// Increment pairs matched
     	pairsMatched++;
     }
 }
@@ -177,7 +177,7 @@ function checkWinner() {
 		}
 
 		// Adjust ms time to seconds
-		const modalTime = document.querySelector('.time');
+		const modalTime = document.querySelector('.scoreTime');
 		modalTime.textContent = Math.round((new Date() - startTime) / 1000);
 
 		// Display modal
@@ -284,6 +284,11 @@ for (let i = 0; i < resetElements.length; i++) {
 	});
 }
 
+// UPDATE GAME TIMER
+setInterval(function updateTimer() {
 
+    // Compare current time to start time & update timer
+	const seconds = document.querySelector('.seconds');
+	seconds.textContent = Math.round((new Date() - startTime) / 1000);
 
-
+}, 1000); // Update every 1000 ms (1 second)

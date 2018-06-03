@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Matching Game</title>
+    <title>Steve's Matching Game</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
@@ -24,8 +24,12 @@
 
         	<span class="moves">0</span> Moves
 
+            <div class="timer">
+                Time Elapsed: <span class="seconds">0</span> Seconds
+            </div>
+
             <div class="restart">
-        		<span>Restart Game        </span><i class="fa fa-repeat"></i>
+        		<span>Restart Game</span><i class="fa fa-repeat"></i>
         	</div>
         </section>
         <!-- DECK STARTS OUT EMPTY (CREATED DYNAMICALLY BY JS FUNCTION) -->
@@ -39,7 +43,7 @@
         <div class="modal-content">
             <h1>Congratulations!!</h1>
 
-            <p>Your score was <span class="score"></span> and you completed the game in <span class="time"></span> seconds!</p>
+            <p>Your score was <span class="score"></span> and you completed the game in <span class="scoreTime"></span> seconds!</p>
 
             <p>Would you like to try again?</p> 
 
