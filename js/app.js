@@ -4,7 +4,8 @@
 
  // GLOBAL VARS 
 const activeCards = [];  // Array to hold 'active' or selected cards
-const activeCardTimer = 1; // Time (in seconds) for 'active' cards to hold after a selection
+const activeCardMax = 2; //Number of active cards allowed at once
+const activeCardTimer = 2; // Time (in seconds) for 'active' cards to hold after a selection
 let pairsMatched = 0; // Total number of pairs currently matched
 let moveCounter = 0; // Total number of moves currently made
 let cardSymbols = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
@@ -84,7 +85,7 @@ function shuffle(array) {
 
 // FLIP CARD - flips the card to reflect the "other" side
 function flipCard(card) {
-
+    
 	//Toggle the class list to add or remove visibility classes
     card.classList.toggle('open');
     card.classList.toggle('show');
@@ -93,10 +94,14 @@ function flipCard(card) {
 // MODIFY ACTIVE CARD LIST
 
 // ADD CARD TO LIST 
-// Since we are using push, this function returns the length of the active card list (check for 2)
+// Since we are using push, this function returns the length of the active card list
 function addActiveCard(card) {
-	flipCard(card);
-	return activeCards.push(card);
+
+	if (activeCards.length < activeCardMax) {
+
+		flipCard(card);
+		return activeCards.push(card);
+	}
 }
 
 // REMOVE CARDS FROM LIST
@@ -113,11 +118,12 @@ function removeActiveCards() {
 			flipCard(card);
 		}
 	}, activeCardTimer * 1000);
+
 }
 
 // CHECK FOR MATCH IN ACTIVE CARD LIST
 function checkMatch(activeCards) {
-    
+
     // Pull <i> child elements of each active card (where symbol classes are found)
     activeCardChild1 = activeCards[0].firstElementChild;
     activeCardChild2 = activeCards[1].firstElementChild;
@@ -209,9 +215,9 @@ function resetGame() {
 	const cardList = document.querySelectorAll('.card');
 	for (let i = 0; i < cardList.length; i++) {
 		cardList[i].addEventListener('click', function selectCard() {
-					
+
 			// Add active card (executed in conditional). If two active cards... 
-			if (addActiveCard(this) === 2) {
+			if (addActiveCard(this) === activeCardMax) {
 				
 	            // Increment move counter
 				incrementMoveCounter();
@@ -251,7 +257,7 @@ for (let i = 0; i < cardList.length; i++) {
 	cardList[i].addEventListener('click', function selectCard() {
 				
 		// Add active card (executed in conditional). If two active cards... 
-		if (addActiveCard(this) === 2) {
+		if (addActiveCard(this) === activeCardMax) {
 			
             // Increment move counter
 			incrementMoveCounter();
@@ -267,8 +273,8 @@ for (let i = 0; i < cardList.length; i++) {
 
 			// Check for a winner
 			checkWinner();
-		}
 
+		}
 	});
 }
 
